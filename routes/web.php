@@ -17,14 +17,15 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'authLogin']);
+Route::get('forgot-password', [AuthController::class, 'showForgotPasswordForm']);
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::get('reset/{remember_token}', [AuthController::class, 'showResetPasswordForm']);
+Route::post('reset/{remember_token}', [AuthController::class, 'resetPassword']);
 Route::get('logout', [AuthController::class, 'logout']);
-
-Route::get('admin/admin/list', function () {
-    return view('backend.admin.admin.list');
-});
 
 Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('admin/admin/list', [DashboardController::class, 'adminList']);
 });
 
 Route::group(['middleware' => 'teacher'], function() {

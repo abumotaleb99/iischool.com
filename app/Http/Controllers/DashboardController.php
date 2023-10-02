@@ -25,4 +25,8 @@ class DashboardController extends Controller
 
     }
 
+    public function adminList() {
+        return view('backend.admin.admin.list');
+    }
+
 }
