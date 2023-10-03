@@ -49,4 +49,15 @@ class User extends Authenticatable
     static public function getUserByToken($remember_token) {
         return User::where('remember_token', '=', $remember_token)->first();
     }
+
+    static public function getAllAdminUsers() {
+        return User::select('users.*')
+                        ->where('role', '=', 1)
+                        ->orderBy('id', 'desc')
+                        ->get();
+    }
+
+    static public function getSingleAdminUserById($id) {
+        return User::find($id);
+    }
 }
