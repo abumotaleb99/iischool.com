@@ -24,13 +24,13 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="name" value="{{ $adminUser->name }}" placeholder="Name">
+                    <input type="text" class="form-control" name="name" value="{{ old('name' ,$adminUser->name) }}" placeholder="Name">
                     <input type="hidden" class="form-control" name="id" value="{{ $adminUser->id }}" placeholder="Name">
                     <span class="text-danger">{{ $errors->has('name') ? $errors->first('name') : "" }}</span>
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="{{ $adminUser->email }}" placeholder="Email">
+                    <input type="email" class="form-control" name="email" value="{{ old('email' ,$adminUser->email) }}" placeholder="Email">
                     <span class="text-danger">{{ $errors->has('email') ? $errors->first('email') : "" }}</span>
                   </div>
                   <div class="form-group">

@@ -24,7 +24,7 @@ class AdminController extends Controller
     public function insert(Request $request) {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:20',
         ]);
 
@@ -56,7 +56,7 @@ class AdminController extends Controller
     public function update(Request $request) {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email,' .$request->id
         ]);
 
         $user = User::getSingleAdminUserById($request->id);
