@@ -21,6 +21,33 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Search Admin</h3>
+             </div>
+            <form action="" method="get">
+                @csrf
+                <div class="card-body row">
+                  <div class="form-group col-12 col-md-3">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" value="{{ Request::get('name') }}" placeholder="Name">
+                  </div>
+                  <div class="form-group col-12 col-md-3 float-left">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" value="{{ Request::get('email') }}" placeholder="Email">
+                  </div>
+                  <div class="form-group col-12 col-md-3 float-left">
+                    <label>Date</label>
+                    <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}" placeholder="Email">
+                  </div>
+                  <div class="form-group form-group col-12 col-md-3 mb-0 d-md-flex align-items-center pt-md-3">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <a href="{{ url('admin/admin/list') }}" class="btn btn-success ml-1">Clear</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+
             @include('backend.message')
             <div class="card">
               <div class="card-header">
@@ -46,7 +73,7 @@
                       <td>{{ $i++ }}</td>
                       <td>{{ $adminUser->name }}</td>
                       <td>{{ $adminUser->email }}</td>
-                      <td>{{ $adminUser->created_at }}</td>
+                      <td>{{ date('d-m-Y', strtotime($adminUser->created_at)) }}</td>
                       <td>
                         <a href="{{ url('admin/admin/edit/'. $adminUser->id) }}" class="btn btn-primary">Edit</a>
                         <a href="{{ url('admin/admin/delete/'. $adminUser->id) }}" class="btn btn-danger">Delete</a>
@@ -55,6 +82,9 @@
                     @endforeach
                   </tbody>
                 </table>
+                <div class="d-flex justify-content-center pt-2">
+                  {{ $adminUsers->onEachSide(1)->links() }}
+                </div>
               </div>
               <!-- /.card-body -->
             </div>

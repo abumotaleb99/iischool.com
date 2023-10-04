@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Request;
 
 class User extends Authenticatable
 {
@@ -51,10 +52,23 @@ class User extends Authenticatable
     }
 
     static public function getAllAdminUsers() {
-        return User::select('users.*')
-                        ->where('role', '=', 1)
-                        ->orderBy('id', 'desc')
-                        ->get();
+        $result = User::select('users.*')
+                        ->where('role', '=', 1);
+
+                        if(!empty(Request::get('name'))) {
+                            $result = $result->where('name', 'like', '%'. Request::get('name'). '%');
+                        }
+                        if(!empty(Request::get('email'))) {
+                            $result = $result->where('email', 'like', '%'. Request::get('email'). '%');
+                        }
+                        if(!empty(Request::get('date'))) {
+                            $result = $result->where('created_at', 'like', '%'. Request::get('date'). '%');
+                        }
+
+        $result = $result->orderBy('id', 'desc')
+                        ->paginate(10);
+        
+        return $result;
     }
 
     static public function getSingleAdminUserById($id) {
