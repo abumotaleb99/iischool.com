@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +35,21 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('admin/admin/edit', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
-    // Class Routes
+    // Lesson Routes
     Route::get('admin/lesson/list', [LessonController::class, 'lessonList']);
     Route::get('admin/lesson/add', [LessonController::class, 'add']);
     Route::post('admin/lesson/add', [LessonController::class, 'insert']);
     Route::get('admin/lesson/edit/{id}', [LessonController::class, 'edit']);
     Route::post('admin/lesson/edit', [LessonController::class, 'update']);
     Route::get('admin/lesson/delete/{id}', [LessonController::class, 'delete']);
+
+    // Subject Routes
+    Route::get('admin/subject/list', [SubjectController::class, 'subjectList']);
+    Route::get('admin/subject/add', [SubjectController::class, 'add']);
+    Route::post('admin/subject/add', [SubjectController::class, 'insert']);
+    Route::get('admin/subject/edit/{id}', [SubjectController::class, 'edit']);
+    Route::post('admin/subject/edit', [SubjectController::class, 'update']);
+    Route::get('admin/subject/delete/{id}', [SubjectController::class, 'delete']);
 
 });
 
