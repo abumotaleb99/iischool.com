@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Edit Admin</h1>
+            <h1>Edit Lesson</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -19,23 +19,21 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <form action="{{ url('admin/admin/edit') }}" method="post">
+              <form action="{{ url('admin/lesson/edit') }}" method="post">
                 @csrf
-                <div class="card-body">
+                <div class="card-body"> 
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="name" value="{{ old('name' ,$adminUser->name) }}" placeholder="Name">
-                    <input type="hidden" class="form-control" name="id" value="{{ $adminUser->id }}">
+                    <input type="text" class="form-control" name="name" value="{{ $lesson->name }}" placeholder="Name">
+                    <input type="hidden" class="form-control" name="id" value="{{ $lesson->id }}">
                     <span class="text-danger">{{ $errors->has('name') ? $errors->first('name') : "" }}</span>
                   </div>
                   <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="{{ old('email' ,$adminUser->email) }}" placeholder="Email">
-                    <span class="text-danger">{{ $errors->has('email') ? $errors->first('email') : "" }}</span>
-                  </div>
-                  <div class="form-group">
-                    <label>Password<span class="text-danger"> Optional</span></label>
-                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    <label>Status</label>
+                    <select class="form-control" name="status" >
+                      <option {{ ($lesson->status == 0 ? 'selected' : '') }} value="0">Active</option>
+                      <option {{ ($lesson->status == 1 ? 'selected' : '') }} value="1">Inactive</option>
+                    </select>
                   </div>
                 </div>
                 <!-- /.card-body -->

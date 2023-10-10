@@ -7,10 +7,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6 pb-2 pb-sm-0">
-            <h1>Admin List</h1>
+            <h1>Lesson List</h1>
           </div>
           <div class="col-sm-6 text-sm-right">
-            <a href="{{ url('admin/admin/add') }}" class="btn btn-primary">Add New Admin</a>
+            <a href="{{ url('admin/lesson/add') }}" class="btn btn-primary">Add New Lesson</a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -23,7 +23,7 @@
           <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Search Admin</h3>
+              <h3 class="card-title">Search Lesson</h3>
              </div>
             <form action="" method="get">
                 @csrf
@@ -33,16 +33,12 @@
                     <input type="text" class="form-control" name="name" value="{{ Request::get('name') }}" placeholder="Name">
                   </div>
                   <div class="form-group col-12 col-md-3 float-left">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email" value="{{ Request::get('email') }}" placeholder="Email">
-                  </div>
-                  <div class="form-group col-12 col-md-3 float-left">
                     <label>Date</label>
                     <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}">
                   </div>
                   <div class="form-group form-group col-12 col-md-3 mb-0 d-md-flex align-items-center pt-md-3">
                     <button type="submit" class="btn btn-primary">Search</button>
-                    <a href="{{ url('admin/admin/list') }}" class="btn btn-success ml-1">Clear</a>
+                    <a href="{{ url('admin/lesson/list') }}" class="btn btn-success ml-1">Clear</a>
                   </div>
                 </div>
               </form>
@@ -51,7 +47,7 @@
             @include('backend.message')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Admin List</h3>
+                <h3 class="card-title">Lesson List</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -60,24 +56,32 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Name</th>
-                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Created By</th>
                       <th>Created Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @if(count($adminUsers) > 0)
-                  
+                  @if(count($lessons) > 0)
+
                     @php($i = 1)
-                    @foreach($adminUsers as $adminUser)
+                    @foreach($lessons as $lesson)
                     <tr>
                       <td>{{ $i++ }}</td>
-                      <td>{{ $adminUser->name }}</td>
-                      <td>{{ $adminUser->email }}</td>
-                      <td>{{ date('d-m-Y H:i A', strtotime($adminUser->created_at)) }}</td>
+                      <td>{{ $lesson->name }}</td>
                       <td>
-                        <a href="{{ url('admin/admin/edit/'. $adminUser->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ url('admin/admin/delete/'. $adminUser->id) }}" class="btn btn-danger">Delete</a>
+                        @if($lesson->status == 0)
+                         Active
+                        @else
+                          Inactive
+                        @endif
+                      </td>
+                      <td>{{ $lesson->created_by_name }}</td>
+                      <td>{{ date('d-m-Y H:i A', strtotime($lesson->created_at)) }}</td>
+                      <td>
+                        <a href="{{ url('admin/lesson/edit/'. $lesson->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url('admin/lesson/delete/'. $lesson->id) }}" class="btn btn-danger">Delete</a>
                       </td>
                     </tr>
                     @endforeach
@@ -90,7 +94,7 @@
                   </tbody>
                 </table>
                 <div class="d-flex justify-content-center pt-2">
-                  {{ $adminUsers->onEachSide(1)->links() }}
+                  {{ $lessons->onEachSide(1)->links() }}
                 </div>
               </div>
               <!-- /.card-body -->
