@@ -44,6 +44,12 @@
             <p>Subjects</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/assign-subject/list') }}" class="nav-link  @if(Request::segment(2) == 'assign-subject') active @endif">
+            <i class="nav-icon far fa-user"></i>
+            <p>Assign Subjects</p>
+          </a>
+        </li>
         @elseif(Auth::user()->role == 2)
         <li class="nav-item">
           <a href="{{ url('teacher/dashboard') }}" class="nav-link  @if(Request::segment(2) == 'dashboard') active @endif">

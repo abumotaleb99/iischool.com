@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\LessonSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,14 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/subject/edit/{id}', [SubjectController::class, 'edit']);
     Route::post('admin/subject/edit', [SubjectController::class, 'update']);
     Route::get('admin/subject/delete/{id}', [SubjectController::class, 'delete']);
+
+    // Assign Subject Routes
+    Route::get('admin/assign-subject/list', [LessonSubjectController::class, 'assignSubjectList']);
+    Route::get('admin/assign-subject/add', [LessonSubjectController::class, 'add']);
+    Route::post('admin/assign-subject/add', [LessonSubjectController::class, 'insert']);
+    Route::get('admin/assign-subject/edit/{id}', [LessonSubjectController::class, 'edit']);
+    Route::post('admin/assign-subject/edit', [LessonSubjectController::class, 'update']);
+    Route::get('admin/assign-subject/delete/{id}', [LessonSubjectController::class, 'delete']);
 
 });
 

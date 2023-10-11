@@ -28,7 +28,18 @@ class Lesson extends Model
         return $result;
     }
 
+    static public function getAllActiveLessons() {
+        $result = Lesson::select('lessons.*')
+                        ->join('users', 'users.id', 'lessons.created_by')
+                        ->where('lessons.status', '=', 0)
+                        ->orderBy('lessons.name', 'asc')
+                        ->get();
+
+        return $result;
+    }
+
     static public function getSingleLessonById($id) {
         return Lesson::find($id);
     }
+
 }
