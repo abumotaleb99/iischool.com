@@ -50,6 +50,13 @@
             <p>Assign Subjects</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/change-password') }}" class="nav-link  @if(Request::segment(2) == 'change-password') active @endif">
+            <i class="nav-icon far fa-user"></i>
+            <p>Change Password</p>
+          </a>
+        </li>
+
         @elseif(Auth::user()->role == 2)
         <li class="nav-item">
           <a href="{{ url('teacher/dashboard') }}" class="nav-link  @if(Request::segment(2) == 'dashboard') active @endif">
@@ -57,6 +64,13 @@
             <p>Dashboard</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('teacher/change-password') }}" class="nav-link  @if(Request::segment(2) == 'change-password') active @endif">
+            <i class="nav-icon far fa-user"></i>
+            <p>Change Password</p>
+          </a>
+        </li>
+
         @elseif(Auth::user()->role == 3)
         <li class="nav-item">
           <a href="{{ url('student/dashboard') }}" class="nav-link  @if(Request::segment(2) == 'dashboard') active @endif">
@@ -64,11 +78,24 @@
             <p>Dashboard</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('student/change-password') }}" class="nav-link  @if(Request::segment(2) == 'change-password') active @endif">
+            <i class="nav-icon far fa-user"></i>
+            <p>Change Password</p>
+          </a>
+        </li>
+
         @elseif(Auth::user()->role == 4)
         <li class="nav-item">
           <a href="{{ url('parent/dashboard') }}" class="nav-link  @if(Request::segment(2) == 'dashboard') active @endif">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('parent/change-password') }}" class="nav-link  @if(Request::segment(2) == 'change-password') active @endif">
+            <i class="nav-icon far fa-user"></i>
+            <p>Change Password</p>
           </a>
         </li>
         @endif

@@ -74,4 +74,8 @@ class User extends Authenticatable
     static public function getSingleAdminUserById($id) {
         return User::find($id);
     }
+
+    static public function getSingleUserById($id) {
+        return User::find($id);
+    }
 }
