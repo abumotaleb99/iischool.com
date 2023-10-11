@@ -58,6 +58,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('admin/assign-subject/add', [LessonSubjectController::class, 'insert']);
     Route::get('admin/assign-subject/edit/{id}', [LessonSubjectController::class, 'edit']);
     Route::post('admin/assign-subject/edit', [LessonSubjectController::class, 'update']);
+    Route::get('admin/assign-subject/edit-single/{id}', [LessonSubjectController::class, 'editSingle']);
+    Route::post('admin/assign-subject/edit-single', [LessonSubjectController::class, 'updateSingle']);
     Route::get('admin/assign-subject/delete/{id}', [LessonSubjectController::class, 'delete']);
 
 });

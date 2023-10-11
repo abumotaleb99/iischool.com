@@ -108,6 +108,45 @@ class LessonSubjectController extends Controller
         return redirect('admin/assign-subject/list')->with("success", "Assigned Subjects updated successfully.");
     }
 
+    public function editSingle($id) {
+        $lessonSubject = LessonSubject::getSingleLessonSubjectById($id);
+
+        if(!empty($lessonSubject)) {
+            $data['header_title'] = 'Edit Assigned Lesson Subject';
+            $data['lessonSubject'] = LessonSubject::getSingleLessonSubjectById($id);
+            $data['allActiveLessons'] = Lesson::getAllActiveLessons();
+            $data['allActiveSubjects'] = Subject::getAllActiveSubjects();
+
+            return view('backend.admin.assign-subject.edit-single', $data);
+        }else {
+            abort(404);
+        }
+
+    }
+
+    public function updateSingle(Request $request) {
+        $getAlreadyFirst = LessonSubject::getAlreadyFirst($request->lesson_id, $request->subject_id);
+
+        if(!empty($getAlreadyFirst)) {
+            $getAlreadyFirst->status = $request->status;
+            $getAlreadyFirst->save();
+
+            return redirect('admin/assign-subject/list')->with("success", "Assigned Subject status updated successfully.");
+
+        }else {
+            $lessonSubject = LessonSubject::getSingleLessonSubjectById($request->id);
+
+            $lessonSubject->lesson_id = $request->lesson_id;
+            $lessonSubject->subject_id = $request->subject_id; 
+            $lessonSubject->status = $request->status;
+            $lessonSubject->save();
+
+            return redirect('admin/assign-subject/list')->with("success", "Assigned Subject updated successfully.");
+
+        }
+
+    }
+
     public function delete($id) {
         $lessonSubject = LessonSubject::getSingleLessonSubjectById($id);
 
